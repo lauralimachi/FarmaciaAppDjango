@@ -1,5 +1,6 @@
 from django.db import models
 from .validators import validar_par
+from django.core.validators import EmailValidator
 from inventario import validators
 
 # Create your models here.
