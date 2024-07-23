@@ -1,4 +1,6 @@
 from django.db import models
+from .validators import validar_par
+from inventario import validators
 
 # Create your models here.
 # class Proveedores(models.Model):
@@ -12,9 +14,11 @@ from django.db import models
 
 class Producto(models.Model):
     nombre_pro = models.CharField(max_length=255)
-    descripcion_pro = models.CharField(max_length=255)
-    precio_pro = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion_pro = models.TextField()
+    precio_pro = models.DecimalField(max_digits=10, decimal_places=2, validators=[validar_par,])
     cantidad_pro = models.IntegerField()
+    created_pro = models.DateTimeField(auto_now_add=True)
+    update_pro = models.DateTimeField(auto_now=True)
     # proveedor_id_pro = models.ForeignKey(Proveedores, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
