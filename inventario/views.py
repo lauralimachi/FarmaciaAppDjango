@@ -3,11 +3,14 @@ from django.http import HttpResponse, JsonResponse
 from .models import Producto
 from .form import ProductForm
 from django.shortcuts import get_object_or_404
+<<<<<<< HEAD
 from rest_framework import viewsets
 from .serializers import ProductoSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
+=======
+>>>>>>> 1394ab79238923f51650b24bdac26a562cd444f8
 
 # Create your views here.
 def index(request):
@@ -34,6 +37,7 @@ def productoFormView(request):
     if form.is_valid():
         form.save()
 
+<<<<<<< HEAD
     return render(request, "productos.html", {"form": form})
 
 
@@ -120,3 +124,6 @@ def reporte_productos(request):
             safe=False,
             status=400
         )
+=======
+    return render(request, "productos.html", {"form": form})
+>>>>>>> 1394ab79238923f51650b24bdac26a562cd444f8

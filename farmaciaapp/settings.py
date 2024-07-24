@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'rest_framework',
     'drf_yasg',
     'inventario',
@@ -44,6 +45,10 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
 }
+=======
+    'inventario',
+]
+>>>>>>> 1394ab79238923f51650b24bdac26a562cd444f8
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

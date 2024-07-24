@@ -1,4 +1,5 @@
 from django.test import TestCase
+<<<<<<< HEAD
 from .models import Producto
 from django.core.exceptions import ValidationError
 
@@ -16,3 +17,7 @@ class TestProducto(TestCase);
         self.assertEqual(mensaje_error["nombre_pro"][0], "No es una opcion permitida")
 
 
+=======
+
+# Create your tests here.
+>>>>>>> 1394ab79238923f51650b24bdac26a562cd444f8
