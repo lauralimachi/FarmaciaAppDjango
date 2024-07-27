@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Producto
+from .models import Producto, Cliente
 from .form import ProductForm
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from .serializers import ProductoSerializer
+from .serializers import ProductoSerializer, ClienteSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
@@ -36,7 +36,7 @@ def productoFormView(request):
 
     return render(request, "productos.html", {"form": form})
 
-
+# para productos 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
@@ -45,7 +45,6 @@ class ProductoViewSet(viewsets.ModelViewSet):
 class ProductoCreateView(generics.CreateAPIView, generics.ListAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
-
 
 @api_view(['GET'])
 def producto_count(request):
@@ -75,11 +74,11 @@ def producto_count(request):
 @api_view(['GET'])
 def productos_en_unidades(requesto):
     """
-    Lista de productos filtrados en unidades
+    Lista de productos filtrados por nombre
     """
 
     try:
-        productos = Producto.objects.filter(unidades='u')
+        productos = Producto.objects.filter(nombre_pro='aspirina')
         return JsonResponse(
             ProductoSerializer(productos, many=True).data,
             safe=False,
@@ -102,12 +101,95 @@ def reporte_productos(request):
     """
 
     try:
-        productos = Producto.objects.filter(unidades='u')
+        productos = Producto.objects.filter(nombre_pro='aspirina')
         cantidad = productos.count()
         return JsonResponse(
             ReporteProductosSerializer({
                 "cantidad": cantidad,
                 "productos": productos
+            }).data,
+            safe=False,
+            status=200,
+        )
+    except Exception as e:
+        return JsonResponse(
+            {
+                "error": str(e)
+            },
+            safe=False,
+            status=400
+        )
+
+# para Cliente
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+class ClienteCreateView(generics.CreateAPIView, generics.ListAPIView):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+@api_view(['GET'])
+def cliente_count(request):
+    """
+    Cuenta la cantidad de clientes
+    """
+
+    try:
+        cantidad = Cliente.objects.count()
+        return JsonResponse(
+            {
+                "cantidad": cantidad
+            },
+            safe=False,
+            status=200,
+        )
+    except Exception as e:
+        return JsonResponse(
+            {
+                "error": str(e)
+            },
+            safe=False,
+            status=400
+        )
+
+
+@api_view(['GET'])
+def clientes_por_nombre(requesto):
+    """
+    Lista de clientes filtrados por nombre
+    """
+
+    try:
+        clientes = Cliente.objects.filter(nombre_cli='Luis Lara')
+        return JsonResponse(
+            ClienteSerializer(clientes, many=True).data,
+            safe=False,
+            status=200,
+        )
+    except Exception as e:
+        return JsonResponse(
+            {
+                "error": str(e)
+            },
+            safe=False,
+            status=400
+        )
+
+
+@api_view(['GET'])
+def reporte_clientes(request):
+    """
+    Reporte de clientes por nombre
+    """
+
+    try:
+        clientes = Cliente.objects.filter(nombre_cli='Luis Lara')
+        cantidad = clientes.count()
+        return JsonResponse(
+            ReporteClientesSerializer({
+                "cantidad": cantidad,
+                "clientes": clientes
             }).data,
             safe=False,
             status=200,

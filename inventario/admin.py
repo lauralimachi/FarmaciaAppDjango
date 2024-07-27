@@ -16,21 +16,29 @@ class ClienteAdmin(admin.ModelAdmin):
     list_per_page = 10
     ordering = ('documento_cli',)
 
-# class VentaAdmin(admin.ModelAdmin):
-#     list_display = ('fecha_vta')
-#     list_filter = ('fecha_vta',)
-#     search_fields = ('fecha_vta',)
-#     list_per_page = 10
-#     ordering = ('fecha_vta',)
+class VentaAdmin(admin.ModelAdmin):
+    list_display = ('fecha_vta','total_vta','moneda_vta')
+    list_filter = ('fecha_vta',)
+    search_fields = ('fecha_vta',)
+    list_per_page = 10
+    ordering = ('fecha_vta',)
 
-# class DetalleAdmin(admin.ModelAdmin):
-#     list_display = ('cantidad_dv')
-#     list_filter = ('cantidad_vd',)
-#     search_fields = ('cantidad_vd',)
-#     list_per_page = 10
-#     ordering = ('cantidad_vd',)
+class DetalleAdmin(admin.ModelAdmin):
+    list_display = ('cantidad_dv','precio_unitario_dv','producto_id_dv','venta_id_dv')
+    list_filter = ('precio_unitario_dv',)
+    search_fields = ('precio_unitario_dv',)
+    list_per_page = 10
+    ordering = ('precio_unitario_dv',)
+
+class DetalleInventario(admin.ModelAdmin):
+    list_display = ('cantidad_inv','producto_id_inv')
+    list_filter = ('cantidad_inv','producto_id_inv',)
+    search_fields = ('producto_id_inv',)
+    list_per_page = 10
+    ordering = ('cantidad_inv',)
 
 admin.site.register(Producto,ProductoAdmin)
 admin.site.register(Cliente,ClienteAdmin)
-admin.site.register(Venta)
-admin.site.register(DetalleVenta)
+admin.site.register(Venta,VentaAdmin)
+admin.site.register(DetalleVenta,DetalleAdmin)
+admin.site.register(Inventario,DetalleInventario)
