@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Producto, Cliente
+from .models import Producto, Cliente, DetalleVenta
 
 
 class ProductoSerializer(serializers.ModelSerializer):
@@ -19,3 +19,8 @@ class ClienteSerializer(serializers.ModelSerializer):
 class ReporteClientesSerializer(serializers.Serializer):
     cantidad = serializers.IntegerField()
     clientes = ClienteSerializer(many=True)
+
+class DetalleVentaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetalleVenta
+        fields = '__all__'

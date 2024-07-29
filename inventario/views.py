@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Producto, Cliente
+from .models import Producto, Cliente , DetalleVenta
 from .form import ProductForm
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from .serializers import ProductoSerializer, ClienteSerializer
+from .serializers import ProductoSerializer, ClienteSerializer, DetalleVentaSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
@@ -202,3 +202,13 @@ def reporte_clientes(request):
             safe=False,
             status=400
         )
+
+# detalle venta
+class DetalleVentaViewSet(viewsets.ModelViewSet):
+    queryset = DetalleVenta.objects.all()
+    serializer_class = DetalleVentaSerializer
+
+
+class DetalleVentaCreateView(generics.CreateAPIView, generics.ListAPIView):
+    queryset = DetalleVenta.objects.all()
+    serializer_class = DetalleVentaSerializer

@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
 router.register(r'cliente', views.ClienteViewSet)
+router.register(r'detalleVenta', views.DetalleVentaViewSet)
 
 
 urlpatterns = [
@@ -22,6 +23,8 @@ urlpatterns = [
     path('clientes/cantidad/', views.cliente_count),
     path('clientes/filtrar/nombre/', views.clientes_por_nombre),
     path('clientes/reporte/', views.reporte_clientes),
+
+    path('detalleVenta/', views.DetalleVentaCreateView.as_view()),
 
 
 
